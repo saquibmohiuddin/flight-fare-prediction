@@ -1,7 +1,5 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 def year_month_extract(df, col):
     df[col + "_year"] = df[col].dt.year
@@ -52,7 +50,7 @@ def preprocess_data(df):
 
     df.drop(["Airline", "Source", "Destination", "Date_of_Journey_year"], axis = 1, inplace = True)
 
-    
+
 
 
 
