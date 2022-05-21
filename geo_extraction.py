@@ -4,6 +4,13 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 
 def geo_extraction(df, col1 = "Source", col2 = "Destination"):
+
+    """"
+    This function get the coordinates for the airports based on the city efficiently
+    (using minimal calls from geopy API based only on unique cities instead of iterating 
+    over all the cities ) 
+    """
+
     src = list(df[col1].unique())
     des = list(df[col2].unique())
 
@@ -23,14 +30,11 @@ def geo_extraction(df, col1 = "Source", col2 = "Destination"):
     airport_src = []
     airport_des = []
 
-    for i in df[col1]:
+    for i, j in zip(df[col1], df[col2]):
         for k, v in airports_dict.items():
             if i == k:
                 airport_src.append(v)
-
-    for i in df[col2]:
-        for k, v in airports_dict.items():
-            if i == k:
+            if j == k:
                 airport_des.append(v)
 
     df[col1 + "_Airport"] = airport_src
@@ -54,15 +58,10 @@ def geo_extraction(df, col1 = "Source", col2 = "Destination"):
     src_geo = []
     des_geo = []
 
-    for src_airport in df[col1 + "_Airport"]:
+    for src_airport, des_airport in zip(df[col1 + "_Airport"], df[col2 + "_Airport"]):
         for k, v in airport_geo.items():
             if src_airport == k:
                 src_geo.append(v)
-
-            
-
-    for des_airport in df[col2 + "_Airport"]:
-        for k, v in airport_geo.items():
             if des_airport == k:
                 des_geo.append(v)
 
