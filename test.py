@@ -1,11 +1,17 @@
-# x = "1h 40m"
-# x.str.replace("h", "*60")
+class Person(object):
+    species = "Human Being"
 
-# x
+    def __init__(self, name):
+        self.name = name 
 
+    def __str__(self):
+        return self.name
 
-x = []
-for i in range(1, 6):
-    x.append(i)
+    def rename(self, renamed):
+        self.rename = renamed
+        print("Now my name is {self.name}")
 
-print(x)
+kelly = Person("kelly")
+saquib = Person("Saquib Mohiuddin Siddiqui")
+
+print(saquib.name)
